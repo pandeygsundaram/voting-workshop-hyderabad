@@ -1,5 +1,6 @@
 #![allow(clippy::result_large_err)]
 
+
 use anchor_lang::prelude::*;
 
 declare_id!("coUnmi3oBUtwtd9fjeAvSsJssXh5A5xyPbhpewyzRVF");
@@ -30,6 +31,10 @@ pub mod voting {
         let candidate = &mut ctx.accounts.candidate;
         candidate.candidate_name = candidate_name;
         candidate.candidate_votes = 0;
+
+        let poll = &mut ctx.accounts.poll;
+        poll.candidate_amount += 1;
+
         Ok(())
     }
 
