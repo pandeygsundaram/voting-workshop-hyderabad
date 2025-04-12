@@ -1,5 +1,4 @@
 #![allow(clippy::result_large_err)]
-#![allow(unexpected_cfgs)]
 
 use anchor_lang::prelude::*;
 
@@ -38,7 +37,7 @@ pub mod voting {
 
     pub fn initialize_voter(ctx: Context<InitializeVoter>) -> Result<()> {
         let voter = &mut ctx.accounts.voter;
-        voter.has_voted = false; // Default state is that the voter has not voted
+        voter.has_voted = false; 
         Ok(())
     }
 
@@ -138,13 +137,11 @@ pub struct InitializePoll<'info> {
 }
 
 #[account]
+#[derive(InitSpace)]
 pub struct Voter {
     pub has_voted: bool,
 }
 
-impl Voter {
-    pub const INIT_SPACE: usize = 8; 
-}
 
 #[error_code]
 pub enum VotingError {
@@ -165,7 +162,7 @@ pub struct Poll {
 
 #[derive(Accounts)]
 #[instruction(poll_id: u64)]
-pub struct InitializeVoter<'info> {  // Fixing typo here
+pub struct InitializeVoter<'info> {  
     #[account(mut)]
     pub signer: Signer<'info>,
 
